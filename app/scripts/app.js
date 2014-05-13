@@ -9,7 +9,7 @@ var forEach = require('async-foreach').forEach,
   'use strict';
 
   // Polyfill the console.
-  console = (typeof(console) !== 'undefined') ? console : { log: function () {} };
+  window.console = window.console || { log: function () {} };
 
   // Detect the environment.
   apollo.removeClass(document.documentElement, 'no-js');
