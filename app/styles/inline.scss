@@ -1,0 +1,19 @@
+object.ampersand-ui {
+  position: absolute;
+  top: -9999px;
+}
+
+.no-ampersands #spinner {
+  margin: 50px auto;
+  width: 100px;
+  height: 100px;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxnPjxsaW5lYXJHcmFkaWVudCBpZD0iSUQxIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAiIHkxPSI1MCIgeDI9IjEwMCIgeTI9IjUwIj48c3RvcCBvZmZzZXQ9IjAuMzMiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRkZGRkYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDAwMDAiLz48L2xpbmVhckdyYWRpZW50PjxwYXRoIGZpbGw9InVybCgjSUQxKSIgZD0iTTUwLDBDMjIuMzg2LDAsMCwyMi4zODYsMCw1MGMwLDI3LjYxNCwyMi4zODYsNTAsNTAsNTBzNTAtMjIuMzg2LDUwLTUwQzEwMCwyMi4zODYsNzcuNjE0LDAsNTAsMHoNCk01MCw5MGMtMjIuMDkxLDAtNDAtMTcuOTA5LTQwLTQwYzAtMjIuMDkxLDE3LjkwOS00MCw0MC00MHM0MCwxNy45MDksNDAsNDBDOTAsNzIuMDkxLDcyLjA5MSw5MCw1MCw5MHoiLz4NCjwvZz48L3N2Zz4NCg==);
+  z-index: 1;
+  transition: all 0.75s ease 0s;
+  animation: standard 0.75s infinite linear;
+  transform-origin: center;
+}
+
+.blank {
+  font-family: AdobeBlank;
+}

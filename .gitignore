@@ -1,0 +1,6 @@
+.DS_Store
+.sass-cache
+public
+node_modules
+build
+sync

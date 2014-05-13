@@ -1,0 +1,78 @@
+{
+  "name": "ampersand.gallery",
+  "version": "0.0.1",
+  "description": "For typography fans and ampersand enthusiasts, ampersand.gallery is a website that shows all (read: some of) the installed ampersands in your favorite browser.",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jliverse/ampersand.gallery.git"
+  },
+  "keywords": [
+    "typography",
+    "UTF-8",
+    "Unicode",
+    "fonts",
+    "OTF",
+    "TTF",
+    "EOT"
+  ],
+  "author": "Joe Liversedge <jliverse@vt.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jliverse/ampersand.gallery/issues"
+  },
+  "browser": {
+    "california": "./vendor/scripts/california.js",
+    "california-functions": "./vendor/scripts/california-functions.js",
+    "apollo": "./vendor/scripts/apollo-1.6.0.js",
+    "mocha-js": "./node_modules/mocha/mocha.js"
+  },
+  "browserify-shim": {
+    "mocha-js": "mocha"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "homepage": "https://github.com/jliverse/ampersand.gallery",
+  "devDependencies": {
+    "browserify": "~3.44.2",
+    "gulp-rename": "~1.2.0",
+    "vinyl-source-stream": "~0.1.1",
+    "gulp-livereload": "~1.3.1",
+    "gulp-streamify": "0.0.5",
+    "gulp-notify": "~1.2.5",
+    "gulp-uglify": "~0.2.1",
+    "gulp": "~3.6.1",
+    "chai": "~1.9.1",
+    "mocha": "~1.18.2",
+    "browserify-shim": "~3.4.1",
+    "gulp-minify-css": "~0.3.1",
+    "gulp-autoprefixer": "0.0.7",
+    "gulp-minify-html": "~0.1.3",
+    "gulp-changed": "~0.3.0",
+    "gulp-imagemin": "~0.5.0",
+    "gulp-open": "~0.2.8",
+    "connect": "~2.15.0",
+    "gulp-sass": "~0.7.1",
+    "gulp-rev": "~0.3.2",
+    "gulp-replace": "~0.3.0",
+    "replacestream": "~0.1.3",
+    "should": "~3.3.1",
+    "async": "~0.8.0",
+    "phantomjs": "~1.9.7-5",
+    "mocha-phantomjs": "~3.4.0",
+    "zombie": "~2.0.0-alpha31",
+    "gulp-mocha-phantomjs": "~0.2.0"
+  },
+  "dependencies": {
+    "es6-promise": "~0.1.1",
+    "present": "0.0.4",
+    "masonry.js": "~3.1.5",
+    "process": "~0.7.0",
+    "async-foreach": "~0.1.3"
+  }
+}
