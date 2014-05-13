@@ -12,11 +12,16 @@ var browserify    = require('browserify'),
 
 var configuration = require('../configuration.js');
 
-gulp.task('test', function() {
-  browserify(configuration.test.source + '/test.js').bundle()
+gulp.task('browserify-tests', function() {
+  browserify(configuration.test.source + '/test-phantomjs.js')
+    .bundle({
+      debug: true
+    })
+    .pipe(replaceStream(path.resolve('.'), ''))
+    .pipe(source('test-phantomjs.js'))
     .pipe(gulp.dest(configuration.test.target));
 
-  gulp.src(configuration.test.source + '/test.html')
+  gulp.src(configuration.test.source + '/test-phantomjs.html')
     .pipe(gulp.dest(configuration.test.target))
     .pipe(phantomJS());
 

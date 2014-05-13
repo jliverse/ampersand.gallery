@@ -1,6 +1,5 @@
 var gulp       = require('gulp'),
     prefix     = require('gulp-autoprefixer'),
-    livereload = require('gulp-livereload'),
     minifyCss  = require('gulp-minify-css'),
     notify     = require('gulp-notify'),
     rename     = require('gulp-rename'),
@@ -16,6 +15,5 @@ gulp.task('sass', function () {
           .pipe(gulp.dest(configuration.target.styles))
           .pipe(rename({ extname: '.min.css' }))
           .pipe(minifyCss({ noAdvanced: false }))
-          .pipe(gulp.dest(configuration.target.styles))
-          .pipe(livereload());
+          .pipe(gulp.dest(configuration.target.styles));
 });

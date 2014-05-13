@@ -14,7 +14,7 @@ var configuration = require('../configuration.js');
 gulp.task('browserify', function() {
 
     var name = 'app';
-    
+
     return browserify(configuration.source.scripts + '/app.js')
         .bundle({
           debug: true
@@ -34,5 +34,5 @@ gulp.task('browserify', function() {
         .pipe(gulp.dest(configuration.target.scripts))
 
         // ... and watch for changes.
-        .pipe(livereload());
+        // .pipe(livereload());
 });
