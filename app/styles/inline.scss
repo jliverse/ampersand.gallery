@@ -1,6 +1,58 @@
-object.ampersand-ui {
-  position: absolute;
-  top: -9999px;
+@mixin information {
+  display: block;
+  margin: 1em;
+  padding: 0.125em 0.25em;
+  line-height: 1.5em;
+  background-color: #fff;
+  border: solid 1px #ddd;
+  border-radius: 4px;
+  strong {
+    display: block;
+  }
+  p {
+    text-align: center;
+  }
+}
+
+/* Inline styles to be included directly in index.html.
+ ****************************************************************************/
+
+noscript, #no-modern-scripts, #no-fonts-loaded {
+  @include information;
+}
+
+.js noscript {
+  display: none;
+}
+
+#no-fonts-loaded {
+  display: none;
+}
+
+.error-no-fonts-loaded {
+  #no-fonts-loaded {
+    display: block;
+  }
+  #spinner {
+    display: none;
+  }
+}
+
+.no-js, .mustard {
+  #no-modern-scripts {
+    display: none;
+  }
+}
+.no-mustard {
+  #no-modern-scripts {
+    display: block;
+  }
+}
+
+.no-js, .no-mustard {
+  #spinner {
+    display: none;
+  }
 }
 
 .no-ampersands #spinner {
@@ -16,4 +68,9 @@ object.ampersand-ui {
 
 .blank {
   font-family: AdobeBlank;
+}
+
+.ampersand-ui {
+  position: absolute;
+  top: -9999px;
 }
