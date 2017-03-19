@@ -13,10 +13,15 @@ var browserify    = require('browserify'),
 var configuration = require('../configuration.js');
 
 gulp.task('browserify-tests', function() {
-  browserify(configuration.test.source + '/test-phantomjs.js')
-    .bundle({
-      debug: true
+    browserify({
+      extensions: [ '.js' ],
+      debug: true,
+      cache: {},
+      packageCache: {},
+      fullPaths: false,
+      entries: configuration.test.source + '/test-phantomjs.js',
     })
+    .bundle()
     .pipe(replaceStream(path.resolve('.'), ''))
     .pipe(source('test-phantomjs.js'))
     .pipe(gulp.dest(configuration.test.target));

@@ -15,11 +15,14 @@ gulp.task('browserify', function() {
 
     var name = 'app';
 
-    return browserify(configuration.source.scripts + '/app.js')
-        .bundle({
-          debug: true
-        })
-
+    return browserify({
+          extensions: [ '.js' ],
+          debug: true,
+          cache: {},
+          packageCache: {},
+          fullPaths: false,
+          entries: configuration.source.scripts + '/app.js',
+        }).bundle()
         // Browserify (insert-module-globals, really) includes the current
         // path in all output. Replace the unique path with a placeholder.
         .pipe(replaceStream(path.resolve('.'), ''))

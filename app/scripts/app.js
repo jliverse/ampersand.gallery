@@ -1,9 +1,21 @@
 var apollo     = require('apollo'),
-    async      = require('async'),  
+    async      = require('async'),
     california = require('california'),
     functions  = require('california-functions');
 
 var forEach = require('async-foreach').forEach;
+
+var FALLBACK_NAMES = [ 'Academy Engraved LET', 'Al Nile', 'American Typewriter',
+  'Apple Color Emoji', 'Apple SD Gothic Neo', 'Arial',
+  'Arial Rounded MT Bold', 'Avenir', 'Avenir Next', 'Avenir Next Condensed',
+  'Baskerville', 'Bodoni 72', 'Bodoni 72 Oldstyle', 'Bodoni Ornaments',
+  'Bradley Hand', 'Chalkboard SE', 'Chalkduster', 'Cochin', 'Copperplate',
+  'Courier', 'Courier New', 'DIN Alternate', 'DIN Condensed',
+  'Damascus', 'Didot', 'Futura', 'Geeza Pro', 'Georgia', 'Gill Sans',
+  'Helvetica', 'Helvetica Neue', 'Hoefler Text', 'Iowan Old Style',
+  'Marion', 'Marker Felt', 'Menlo', 'Noteworthy', 'Optima', 'Palatino',
+  'Papyrus', 'Party LET', 'Snell Roundhand', 'Superclarendon', 'Symbol',
+  'Times New Roman', 'Trebuchet MS', 'Verdana', 'Zapf Dingbats', 'Zapfino' ];
 
 (function() {
   'use strict';
@@ -32,7 +44,7 @@ var forEach = require('async-foreach').forEach;
   };
 
   // Create an asynchronous task to wait for the fonts.
-  var fontsTask = function(next) {
+  var flashFontsTask = function(next) {
 
     // This window-global is a callback for the Dugonjić-Rantakari font
     // enumeration technique (i.e., using Macromedia Flash/Adobe Flex).
@@ -76,43 +88,32 @@ var forEach = require('async-foreach').forEach;
       document.addEventListener('DOMContentLoaded', resolveWithDialogHelper);
     }
 
-    var isControlUnavailable = (!window.ActiveXObject ||
-      (new window.ActiveXObject('ShockwaveFlash.ShockwaveFlash')) === false);
-    var isPluginUnavailable = (typeof navigator.plugins === 'undefined' ||
-      typeof navigator.plugins['Shockwave Flash'] !== 'object');
-    
+    var isPluginAvailable = navigator.plugins &&
+      typeof navigator.plugins['Shockwave Flash'] === 'object';
+    var isControlAvailable = window.ActiveXObject &&
+      new window.ActiveXObject('ShockwaveFlash.ShockwaveFlash') || false;
+
     // Assume that Flash is unavailable if there's no way to play it. (This
     // does not check for Flash blocking tools, but many of those allow
     // small or invisible Flash scripts. If unavailable, pick a list of
     // common fonts, which will be checked individually.
-    if(isPluginUnavailable && isControlUnavailable) {
-      next(null, [ 'Academy Engraved LET', 'Al Nile', 'American Typewriter',
-        'Apple Color Emoji', 'Apple SD Gothic Neo', 'Arial',
-        'Arial Hebrew', 'Arial Rounded MT Bold', 'Avenir',
-        'Avenir Next', 'Avenir Next Condensed', 'Bangla Sangam MN',
-        'Baskerville', 'Bodoni 72', 'Bodoni 72 Oldstyle',
-        'Bodoni 72 Smallcaps', 'Bodoni Ornaments', 'Bradley Hand',
-        'Chalkboard SE', 'Chalkduster', 'Cochin', 'Copperplate',
-        'Courier', 'Courier New', 'DIN Alternate', 'DIN Condensed',
-        'Damascus', 'Devanagari Sangam MN', 'Didot', 'Euphemia UCAS',
-        'Farah', 'Futura', 'Geeza Pro', 'Georgia', 'Gill Sans',
-        'Gujarati Sangam MN', 'Gurmukhi MN', 'Heiti SC', 'Heiti TC',
-        'Helvetica', 'Helvetica Neue', 'Hiragino Kaku Gothic ProN',
-        'Hiragino Mincho ProN', 'Hoefler Text', 'Iowan Old Style',
-        'Kailasa', 'Kannada Sangam MN', 'Malayalam Sangam MN',
-        'Marion', 'Marker Felt', 'Menlo', 'Mishafi', 'Noteworthy',
-        'Optima', 'Oriya Sangam MN', 'Palatino', 'Papyrus',
-        'Party LET', 'Savoye LET', 'Sinhala Sangam MN',
-        'Snell Roundhand', 'Superclarendon', 'Symbol',
-        'Tamil Sangam MN', 'Telugu Sangam MN', 'Thonburi',
-        'Times New Roman', 'Trebuchet MS', 'Verdana', 'Zapf Dingbats',
-        'Zapfino' ]);
+    if(!isPluginAvailable || !isControlAvailable) {
+      next(null, FALLBACK_NAMES);
     }
+  };
+
+  var fallbackFontsTask = function(next) {
+    setTimeout(function() {
+      next(null, FALLBACK_NAMES);
+    }, 1000);
+  };
+
+  var fontsTask = function(next) {
+      async.race([ flashFontsTask, fallbackFontsTask ], next);
   };
 
   // Run the tasks in parallel and handle the results coming back.
   async.parallel([ readyTask, fontsTask ], function(err, results) {
-
     if (err) {
       apollo.addClass(document.documentElement, 'error-no-fonts-loaded');
       console.log('There was a problem while expecting the page load with a list of system fonts.', results);
@@ -155,7 +156,7 @@ var forEach = require('async-foreach').forEach;
 
       // Collect alpha data in six-bit chunks to get ranges from 0 to 63.
       // The image data is RGBARGBARGBA, so pre-set the alpha positions
-      // for each step in the loop for cleaner formatting. 
+      // for each step in the loop for cleaner formatting.
       var positions = [ 3, 7, 11, 15, 19, 23 ];
       for (var i = 0; i < data.length; i += 24) {
         // We want to know only when the alpha for
@@ -194,7 +195,7 @@ var forEach = require('async-foreach').forEach;
       div.setAttribute('title', font.name);
       div.appendChild(dt);
       div.appendChild(dd);
-      
+
       var elements = [
         ('000' + weight).slice(-3),
         (font.containsGlyph('A') ? 1 : 0),

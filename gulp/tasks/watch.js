@@ -7,7 +7,7 @@ gulp.task('watch', function() {
   var server = livereload();
 
   var reload = function(file) {
-    server.changed(file.path);
+    livereload.changed(file.path);
   };
 
   gulp.watch(configuration.vendor.scripts + '/**', ['uglify']);
